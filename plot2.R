@@ -1,14 +1,23 @@
-require(sqldf)
+#
+# Write plot built by fun() into PNG-file with filename
+#
+doPlotting <- function (filename, fun) {
+    hpc <- getDataFrame()
 
-Sys.setlocale(locale = "English")
-hpc <- getDataFrame()
-png("plot2.png", width = 504, height = 504, units = "px", bg = "transparent", type="cairo-png")
-plot(hpc$timestamp, hpc$Global_active_power, type="l", main="", ylab="Global Active Power (kilowatts)", xlab="")
-dev.off()
-rm(hpc)
+    png(filename, width = 504, height = 504, units = "px", bg = "transparent", type="cairo-png")
+    fun(hpc)
+
+    dev.off()
+    rm(hpc)
+
+}
 
 
-
+#
+# Loads data frame with Household Power Consumption Data ("household_power_consumption.txt")
+# If txt-file is present in current dir loads it, if not then unzip "household_power_consumption.zip"
+# If there is no files throws error
+#
 getDataFrame <- function() {
     require(sqldf)
 
@@ -35,3 +44,15 @@ getDataFrame <- function() {
     data$timestamp <- strptime(paste(data$Date, " ", data$Time), "%d/%m/%Y %H:%M:%S")
     data
 }
+
+
+## run code immediately if load it with source()
+
+# need to set English locale to display weekdays as on test image
+Sys.setlocale(locale = "English")
+doPlotting(
+    "plot2.png",
+    function(df) {
+        plot(df$timestamp, df$Global_active_power, type="l", main="", ylab="Global Active Power (kilowatts)", xlab="")
+    }
+)
