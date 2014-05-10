@@ -1,13 +1,23 @@
-hpc <- getDataFrame()
+#
+# Write plot built by fun() into PNG-file with filename
+#
+doPlotting <- function (filename, fun) {
+    hpc <- getDataFrame()
 
-png("plot1.png", width = 504, height = 504, units = "px", bg = "transparent", type="cairo-png")
+    png(filename, width = 504, height = 504, units = "px", bg = "transparent", type="cairo-png")
+    fun(hpc)
 
-hist(hpc$Global_active_power, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)", ylab="Frequency")
+    dev.off()
+    rm(hpc)
 
-dev.off()
-rm(hpc)
+}
 
 
+#
+# Loads data frame with Household Power Consumption Data ("household_power_consumption.txt")
+# If txt-file is present in current dir loads it, if not then unzip "household_power_consumption.zip"
+# If there is no files throws error
+#
 getDataFrame <- function() {
     require(sqldf)
 
@@ -34,3 +44,13 @@ getDataFrame <- function() {
     data$timestamp <- strptime(paste(data$Date, " ", data$Time), "%d/%m/%Y %H:%M:%S")
     data
 }
+
+
+## run code immediately if load it with source()
+
+doPlotting(
+    "plot1.png",
+    function(df) {
+        hist(df$Global_active_power, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)", ylab="Frequency")
+    }
+)
