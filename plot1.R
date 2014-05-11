@@ -4,7 +4,7 @@
 doPlotting <- function (filename, fun) {
     hpc <- getDataFrame()
 
-    png(filename, width = 504, height = 504, units = "px", bg = "transparent", type="cairo-png")
+    png(filename, width = 480, height = 480, units = "px", bg = "transparent", type="cairo-png")
     fun(hpc)
 
     dev.off()
