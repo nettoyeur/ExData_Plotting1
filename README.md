@@ -1,3 +1,32 @@
+## Resulting images
+
+### Plot 1
+
+![plot 01](plot1.png) 
+
+### Plot 2
+
+![plot 02](plot2.png) 
+
+### Plot 3
+
+![plot 03](plot3.png) 
+
+### Plot 4
+
+![plot 04](plot4.png) 
+
+## Notes on the code provided
+
+* The code uses data loaded from `household_power_consumption.txt` placed into current directory. If there is no such file the code extracts this txt-file from provided `household_power_consumption.zip` (which is a copy of the original dataset file).
+* Data file loaded with `sqldf` R package, so please install it if you plan to run this code (**Note:** running the code is not suggested by assignment's instructions so do it on your own!).
+* Data loaded by `getDataFrame()` function.
+* Plotting is done directly to PNG file.
+* Plotting is done by call `doPlotting` function with required parameters, `filename`: e.g. `plot1.png`; and `fun`: function that do actual plotting, depends on what plot you want).
+* Call for plotting is made on top level, so if you load file with `source("plotN.R")` it automatically loads data and [re-]creates corresponding PNG file.
+* Unfortunately the assignment **requires** to include code that loads data and creates PNG file into every R file and that keeps me off extracting one util file this supplemented code and need to copy-paste it into all 4 files so R-files are slightly messed with the same stuff.
+
+
 ## Introduction
 
 This assignment uses data from
